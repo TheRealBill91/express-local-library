@@ -23,10 +23,11 @@
                 <dl>
                     <% if (genre_books.length > 0) { %> <%
             genre_books.forEach(function(book) { %>
-                    <dt>
+                    <dt style="display: flex; gap: 10px; align-items: baseline;">
                         <a href="<%= book.url %>"><%= book.title %></a>
+
                     </dt>
-                    <dd><%= book.summary  %></dd>
+                    <dd><%= book.summary %></dd>
                     <% }); %> <% } else { %>
                     <li>This genre has no books...</li>
                     <% } %>

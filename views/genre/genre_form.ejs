@@ -23,12 +23,13 @@
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="name"> Genre: </label>
-                        <input id="name" class="form-control" type="text" name="form-control"
+                        <input id="name" name="name" class="form-control" type="text" name="form-control"
                             placeholder="Fantasy, Poetry, etc"
                             value="<%= (typeof genre === 'undefined') ? '' : genre.name  %>" required="true" />
                     </div>
-                    <button style="border: none; border-radius: 8px; padding: 6px;" class="btn-primary"
-                        type="submit">Submit</button>
+                    <button style="border: none; border-radius: 8px; padding: 6px" class="btn-primary" type="submit">
+                        Submit
+                    </button>
                 </form>
 
                 <% if (typeof errors !== 'undefined') { %> <% if (errors) { %>

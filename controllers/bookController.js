@@ -67,8 +67,6 @@ exports.book_create_get = asyncHandler(async (req, res, next) => {
         Genre.find().exec(),
     ]);
 
-    console.log(allGenres);
-
     res.render("book/book_form", {
         title: "Create Book",
         authors: allAuthors,
@@ -149,12 +147,50 @@ exports.book_create_post = [
 
 // Handle book delete on POST.
 exports.book_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Book delete POST");
+    // Get details of books and all the  book instances (in parallel)
+    const [book, associatedBookInstances] = await Promise.all([
+        Book.findById(req.params.id).exec(),
+        BookInstance.find({ book: req.params.id }, "status due_back")
+            .populate("book")
+            .exec(),
+    ]);
+
+    if (associatedBookInstances.length > 0) {
+        // Book has bookInstances. Render in same way as for GET route.
+        res.render("book/book_delete", {
+            title: "Delete Book",
+            book: book,
+            book_instances: associatedBookInstances,
+        });
+        return;
+    } else {
+        // Author has no books. Delete object and redirect to the list of authors.
+
+        await Book.findByIdAndRemove(req.body.bookid);
+        res.redirect("/catalog/books");
+    }
 });
 
 // Display book delete form on GET.
 exports.book_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Book delete GET");
+    // Get details of genre and all their books (in parallel)
+    const [book, associatedBookInstances] = await Promise.all([
+        Book.findById(req.params.id).exec(),
+        BookInstance.find({ book: req.params.id }, "status due_back imprint")
+            .populate("book")
+            .exec(),
+    ]);
+
+    if (book === null) {
+        // No results.
+        res.redirect("/catalog/books");
+    }
+
+    res.render("book/book_delete", {
+        title: "Delete Book",
+        book: book,
+        book_instances: associatedBookInstances,
+    });
 });
 
 // Display book update form on GET.

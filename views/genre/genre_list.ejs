@@ -20,12 +20,20 @@
 
             <div class="col-sm-10" style="margin-top: 20px">
                 <h1><%= title %></h1>
-                <ul>
-                    <% if (genre_list.length > 0) { %>
-                    <% genre_list.forEach(function(genre) { %>
-                    <li>
-                        <a href="<%= genre.url %>"><%= genre.name %></a>
-                    </li>
+                <ul style="display: flex; flex-direction: column; gap: 12px;">
+                    <% if (genre_list.length > 0) { %> <%
+            genre_list.forEach(function(genre) { %>
+                    <div style="display: flex; align-items: baseline; gap: 12px;">
+                        <li style="list-style: none">
+                            <a href="<%= genre.url %>"><%= genre.name %></a>
+                        </li>
+                        <button class="btn-primary" style="border-radius: 8px; padding: 6px">
+                            <a style="color: lightgray" href="<%= genre.url+'/delete' %>">
+                                Delete Genre
+                            </a>
+                        </button>
+                    </div>
+
                     <% }); %> <% } else { %>
                     <li>No genres found...</li>
                     <% } %>
