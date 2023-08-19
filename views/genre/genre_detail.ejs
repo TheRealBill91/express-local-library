@@ -36,6 +36,11 @@
             <li>This genre has no books...</li>
             <% } %>
           </dl>
+          <hr>
+          <div style="display: flex; gap: 10px">
+            <a href="<%= genre.url+'/delete' %>"> Delete Genre </a>
+            <a href="<%= genre.url+'/update' %>"> Update Genre </a>
+          </div>
         </div>
       </div>
     </div>
