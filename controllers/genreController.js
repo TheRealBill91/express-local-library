@@ -49,7 +49,7 @@ exports.genre_create_post = [
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
-    console.log(typeof errors !== "undefined");
+    // console.log(typeof errors !== "undefined");
 
     // Create a genre object with escaped and trimmed data.
     const genre = new Genre({ name: req.body.name });
@@ -150,7 +150,7 @@ exports.genre_update_post = [
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
-    console.log(typeof errors !== "undefined");
+    // console.log(typeof errors !== "undefined");
 
     // Create a genre object with escaped and trimmed data.
     const genre = new Genre({
